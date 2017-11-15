@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Vóisa Recepies</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
+  <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="//apis.google.com/js/platform.js?onload=start"> </script>
+</head>
+<body>
+
+{% block scripts %}
+{% endblock %}
+
+<nav class="header navbar navbar-expand-md fixed-top navbar-light">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="brand navbar-brand" href="{{ url_for('showCategories') }}">Vóisa Recipes</a>
+        </div>
+        {% if log %}
+        <ul class="nav navbar-nav">
+            <li><a href="{{ url_for('createItem') }}">Create Item</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="{{ url_for('disconnect') }}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+            <li><img class="user-image" src={{log.picture}} alt="User picture"></li>
+        </ul>
+        {% else %}
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="{{ url_for('showLogin') }}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        </ul>
+        {% endif %}
+    </div>
+</nav>
+
+<div class="container">
+    <div class="row">
+		<div class="col-xs-12 col-sm-12">
+            <p class="slogan">because you can not miss the recipes of our grandparents</p>
+        </div>
+    </div>
+</div>
+
+<div class="container content-header">
+	<div class="row">
+		<div class="col-xs-12 col-sm-12">
+			{% with messages = get_flashed_messages() %}
+			  {% if messages %}
+			    <ul>
+			    {% for message in messages %}
+			      <li>{{ message }}</li>
+			    {% endfor %}
+			    </ul>
+			  {% endif %}
+			{% endwith %}
+		</div>
+	</div>
+</div>
+
+<div class="content">
+    {% block content %}
+    {% endblock %}
+</div>
+
+</body>
+</html>
